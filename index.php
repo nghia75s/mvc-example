@@ -12,29 +12,25 @@
     8. view hiển thị dữ liệu ra trình duyệt
 */
 
-require_once './configs/config.php';
-require_once './configs/database.php';
-require_once './app/Models/CoreModel.php';
-require_once './app/Models/Users.php';
-require_once './app/Models/Group.php';
-require_once './app/Controllers/BaseController.php';
-require_once './app/Controllers/UserController.php';
 
-// $user = new Users();
+//Nhúng hết file .php có trong folder
+foreach(glob(__DIR__.'\configs\*.php') as $file) {
+    require_once $file;
+}
 
-// $data = [
-//     'username' => 'user',
-//     'email' => 'admin',
-//     'password' => 'lamo',
-// ];
+foreach(glob(__DIR__.'\core\*.php') as $file) {
+    require_once $file;
+}
 
-// echo '<pre>';
-// print_r($user -> deleteUser($data, 11));
-// echo '</pre>';
+foreach(glob(__DIR__.'\app\Models\*.php') as $file) {
+    require_once $file;
+}
 
-// echo '<pre>';
-// print_r($user -> getAllUser());
-// echo '</pre>';
+foreach(glob(__DIR__.'\app\Controllers\*.php') as $file) {
+    require_once $file;
+}
 
+
+//main()
 $controller = new UserController();
 $controller->index();

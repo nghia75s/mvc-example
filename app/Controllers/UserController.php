@@ -5,8 +5,6 @@ class UserController extends BaseController{
         $user = new Users();
         $userDetail = $user -> getAllUser();
 
-
-
         $this -> renderView('users', $userDetail);
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-class UserController{
+class UserController extends BaseController{
     public function index(){
         $user = new Users();
         $userDetail = $user -> getAllUser();
 
-        echo '<pre>';
-        print_r($userDetail);
-        echo '</pre>';
+
+
+        $this -> renderView('users', $userDetail);
     }
 }

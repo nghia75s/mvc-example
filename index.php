@@ -17,6 +17,7 @@ require_once './configs/database.php';
 require_once './app/Models/CoreModel.php';
 require_once './app/Models/Users.php';
 require_once './app/Models/Group.php';
+require_once './app/Controllers/BaseController.php';
 require_once './app/Controllers/UserController.php';
 
 // $user = new Users();

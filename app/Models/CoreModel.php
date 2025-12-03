@@ -31,18 +31,23 @@ class CoreModel{
         return $stm->execute(array_values($data));
     }
 
-    public function update($table, $data = []){
-        $setClause = "";
-        foreach ($data as $key => $value) {
-            $setClause .= "$key = ?, ";
-        }
-        $setClause = rtrim($setClause, ", ");
+    public function update($table, $data = [], $where = []){
+        $setPart = implode(" = ?, ", array_keys($data)) . " = ?";
+        $wherePart = implode(" = ? AND ", array_keys($where)) . " = ?";
 
-        $sql = "UPDATE $table SET $setClause WHERE id = ?";
+        $sql = "UPDATE $table SET $setPart WHERE $wherePart";
 
         $stm = $this->conn->prepare($sql);
-        $values = array_values($data);
-        $values[] = $data['id']; // Assuming 'id' is part of $data for the WHERE clause
+        $values = array_merge(array_values($data), array_values($where));
         return $stm->execute($values);
+    }
+
+    public function delete($table, $where = []){
+        $wherePart = implode(" = ? AND ", array_keys($where)) . " = ?";
+        
+        $sql = "DELETE FROM $table WHERE $wherePart";
+        
+        $stm = $this->conn->prepare($sql);
+        return $stm->execute(array_values($where));
     }
 }

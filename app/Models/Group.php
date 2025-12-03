@@ -12,4 +12,12 @@ class Groups extends CoreModel{
     public function insertGroup($data){
         return  $this -> insert("groups", $data);
     }
+
+    public function updateGroups($data, $id){
+        return $this -> update("groups", $data, $id);
+    }
+
+    public function deleteGroup($id){
+        return $this -> delete("groups", $id);
+    }
 }

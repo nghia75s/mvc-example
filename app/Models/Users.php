@@ -17,7 +17,7 @@ class Users extends CoreModel{
         return $this -> update("users", $data, $id);
     }
 
-    public function deleteUser($id){
+    public function deleteUser($data, $id){
         return $this -> delete("users", $id);
     }
 }

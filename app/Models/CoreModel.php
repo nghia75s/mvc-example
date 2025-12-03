@@ -21,30 +21,29 @@ class CoreModel{
         return $stm -> rowCount();
     }
 
-    public function insert($table, $data = []){
-        $fields = implode(",", array_keys($data));
-        $placeholders = implode(",", array_fill(0, count($data), "?"));
-
-        $sql = "INSERT INTO $table ($fields) VALUES ($placeholders)";
-
+    public function insert($table, $data){
+        $keys = array_keys($data);
+        $cot = implode(", ", $keys);
+        $place = ':'.implode(', :', $keys);
+        $sql = "INSERT INTO $table ($cot) VALUES ($place)";
         $stm = $this->conn->prepare($sql);
-        return $stm->execute(array_values($data));
+        return $stm->execute($data);
     }
 
-    public function update($table, $data = [], $where = []){
-        $setPart = implode(" = ?, ", array_keys($data)) . " = ?";
-        $wherePart = implode(" = ? AND ", array_keys($where)) . " = ?";
-
-        $sql = "UPDATE $table SET $setPart WHERE $wherePart";
-
+    public function update($table, $data, $condition){
+        $update = "";
+        foreach($data as $key => $value){
+            $update .= "$key = :$key, ";
+        }
+        $update = rtrim($update, ", ");
+        $sql = "UPDATE $table SET $update WHERE id = $condition";
         $stm = $this->conn->prepare($sql);
-        $values = array_merge(array_values($data), array_values($where));
-        return $stm->execute($values);
+        return $stm->execute($data);
     }
 
-    public function delete($table, $where){
-        $sql = "DELETE FROM $table WHERE id = ?";
+    public function delete($table, $condition){
+        $sql = "DELETE FROM $table WHERE id = ".$condition;
         $stm = $this->conn->prepare($sql);
-        return $stm->execute([$where]);
+        return $stm->execute( );
     }
 }

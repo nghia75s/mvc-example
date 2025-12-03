@@ -8,13 +8,13 @@ require_once './app/Models/Group.php';
 $user = new Users();
 
 $data = [
-    'username' => 'admin',
+    'username' => 'user',
     'email' => 'admin',
-    'password' => 'admin',
+    'password' => 'lamo',
 ];
 
 echo '<pre>';
-print_r($user -> updateUser( $data , 4));
+print_r($user -> deleteUser($data, 11));
 echo '</pre>';
 
 echo '<pre>';

@@ -5,12 +5,18 @@ require_once './app/Models/CoreModel.php';
 require_once './app/Models/Users.php';
 require_once './app/Models/Group.php';
 
-$user = new Groups();
+$user = new Users();
 
 $data = [
-    'name' => 'student',
+    'username' => 'admin',
+    'email' => 'admin',
+    'password' => 'admin',
 ];
 
 echo '<pre>';
-print_r($user -> getAllGroup());
+print_r($user -> updateUser( $data , 4));
+echo '</pre>';
+
+echo '<pre>';
+print_r($user -> getAllUser());
 echo '</pre>';

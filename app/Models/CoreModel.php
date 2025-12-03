@@ -42,12 +42,9 @@ class CoreModel{
         return $stm->execute($values);
     }
 
-    public function delete($table, $where = []){
-        $wherePart = implode(" = ? AND ", array_keys($where)) . " = ?";
-        
-        $sql = "DELETE FROM $table WHERE $wherePart";
-        
+    public function delete($table, $where){
+        $sql = "DELETE FROM $table WHERE id = ?";
         $stm = $this->conn->prepare($sql);
-        return $stm->execute(array_values($where));
+        return $stm->execute([$where]);
     }
 }

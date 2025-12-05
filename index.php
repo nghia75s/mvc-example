@@ -30,7 +30,14 @@ foreach(glob(__DIR__.'\app\Controllers\*.php') as $file) {
     require_once $file;
 }
 
+$router = new Router();
 
-//main()
-$controller = new UserController();
-$controller->index();
+foreach(glob(__DIR__.'\routers\*.php') as $file) {
+    require_once $file;
+}
+
+$projectName = 'mvc';
+$requestUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$requestUrl = str_replace('/'.$projectName, '', $requestUrl); //Remove /mvc from URL
+$method = $_SERVER['REQUEST_METHOD'];
+$router -> processPath($method, $requestUrl);
